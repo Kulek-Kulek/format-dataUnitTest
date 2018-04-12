@@ -1,19 +1,32 @@
-function formatDate () {
-  const os = require('os');
+function formatDate (timeInSeconds) {
+
+	if(timeInSeconds === undefined){
+		return '0s';
+	}
+
+	let hour = Math.floor(timeInSeconds / 3600);
+	let minute = Math.floor((timeInSeconds - hour * 3600) / 60) ;
+	let second = Math.floor(timeInSeconds % 60);
 
 
-let uptime = (os.uptime());
-let hour = `${uptime}` / 3600;
-let minute = (`${hour}` - Math.floor(hour)) * 60;
-let second = (`${minute}` - Math.floor(minute)) * 60;
+	let format = '';
 
-if (`${uptime}` < 60) {
-	console.log(Math.floor(`${second}`) + `s`)
-} if (`${uptime}` >= 60 && `${uptime}` < 3600) {
-	console.log(Math.floor(`${minute}`) + `m`, Math.floor(`${second}`) + `s`);
-} if (`${uptime}` >= 3600) {
-	console.log(`Current uptime is: ` + Math.floor(`${hour}`) + `h`, Math.floor(`${minute}`) + `m`, Math.floor(`${second}`) + `s`);
-}
+	if(hour !== 0){
+		format += `${hour}h`;
+	}
+
+	if(minute !== 0){
+		format += ` ${minute}m`;
+	}
+
+	if(second !== 0){
+		format += ` ${second}s`;
+	}
+
+	format = format.trim();
+
+	return format;
+
 }
 
 
